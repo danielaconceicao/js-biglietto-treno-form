@@ -12,19 +12,20 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form action="" class="">
-                    <div class="col-4">
+                <form>
+                    <div class="col-4 pt-4">
                         <label for="text" class="form-label">Nome Cognome</label>
-                        <input  id="inputName" name="inputName" class="form-control form-control" type="text" placeholder="Daniela Santos" aria-label=".form-control-lg example">
+                        <input  id="inputName" name="inputName" class="form-control form-control" type="text" placeholder="your name" aria-label=".form-control-lg example" required>
                     </div>
-                    <div class="col-4">
+                    <div class="col-4 py-3">
                         <label for="inputNumber" class="form-label">Km da percorrere</label>
-                        <input type="Number" name="inputNumber" class="form-control" id="inputNumber" placeholder="10">
+                        <input type="Number" name="inputNumber" class="form-control" id="inputNumber" placeholder="10" required>
                     </div>
                     <div class="col-4">
                         <label for="select" class="mb-2">Fascia d'età</label>
-                        <select id="select" class="form-select" aria-label="Default select example">
-                            <option value="1" selected>Minorenne</option>
+                        <select id="select" class="form-select" aria-label="Default select example" required>
+                            <option value="" selected>-</option>
+                            <option value="1">Minorenne</option>
                             <option value="2">Maggiorenne</option>
                             <option value="3">Over 65</option>
                         </select>
@@ -35,12 +36,11 @@
                 </form>
             </div>
         </div>
-    </div>
-    <div>
-        <div class="see-ticket">
-            
+        <div>
+            <div class="see-ticket"></div>
         </div>
     </div>
+    
 
 <script src="main.js"></script>
 </body>
