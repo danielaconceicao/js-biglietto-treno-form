@@ -1,37 +1,19 @@
 const selectEl = document.querySelector('#select');
 const formEl = document.querySelector('form');
 const ticketEl = document.querySelector('.see-ticket');
-
+const totalPrice = document.querySelector('total-price');
 
 formEl.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const inputNameEl = e.target.inputName.value;
-    const inputNumberEl = e.target.inputNumber.value;
-    const optionEl = selectEl.options[select.selectedIndex].text;
+    const inputKmEl = e.target.inputNumber.value;
+    const optionAgeEl = selectEl.options[select.selectedIndex].text;
 
-    const info = `<h1 class'pb-5'>Il tuo biglietto</h1>
-            <div class='d-flex justify-content-around'>
-                <div>
-                    <h2 class='pe-4'>Nome</h2>
-                    <span>${inputNameEl}</span>
-                </div>
-                <div>
-                    <h2 class='pe-4'>Km da percorrere</h2>
-                    <span>${inputNumberEl}km</span>
-                </div>
-                <div>
-                    <h2 class='pe-4'>Fascia d'età</h2>
-                    <span>${optionEl}</span>
-                </div>
-                <div>
-                    <h2 class='pe-4'>Costo Biglietto</h2>
-                    <span>${getTicketPrice(inputNumberEl, optionEl)}</span>
-                </div>
-            </div>`;
+    const info = genereteTicketMarkup(inputNameEl, inputKmEl, optionAgeEl, getTicketPrice);
 
     /* checkingInputValue(inputNameEl, inputNumberEl, optionEl); */
-    if (inputNameEl.length < 0 || inputNumberEl < 20 || optionEl.value === 0) {
+    if (inputNameEl.length < 0 || inputKmEl < 20 || optionAgeEl.value === 0) {
         alert('compilare correttamente tutti i campi');
         clearInput();
         return;
@@ -39,11 +21,10 @@ formEl.addEventListener('submit', function (e) {
 
     ticketEl.insertAdjacentHTML('beforeend', info);
     clearInput();
+
 });
 
-formEl.addEventListener('reset', function () {
-    cancelTicketPurchase();
-});
+formEl.addEventListener('reset', cancelTicketPurchase);
 
 function getTicketPrice(km, option) {
 
@@ -65,9 +46,9 @@ function getTicketPrice(km, option) {
     let discountForSeniorsFormatted = discountForSeniors.toLocaleString('it-IT', { style: "currency", currency: 'EUR' });
 
 
-    if (option === 'Minorenne') {
+    if (option === 'Minor') {
         return `${discountForMinorsFormatted}`;
-    } else if (option === 'Over 65') {
+    } else if (option === 'Senior') {
         return `${discountForSeniorsFormatted}`;
     } else {
         return `${formattedTicketPrice}`;
@@ -83,9 +64,30 @@ function cancelTicketPurchase() {
     document.querySelector('.see-ticket').innerHTML = '';
 }
 
-function checkingInputValue(nome, number) {
-    if (nome.length < 5 || number < 20) {
+function checkingInputValue(nome, km) {
+    if (nome.length < 5 || km < 20) {
         alert('compilare correttamente tutti i campi');
         return;
     }
+}
+function genereteTicketMarkup(fullName, km, age, getTicketprice) {
+    return `<h1 class'pb-5 text-center'>Il tuo biglietto</h1>
+            <div class='d-flex justify-content-around'>
+                <div>
+                    <h2 class='pe-4 h5'>Nome</h2>
+                    <span>${fullName}</span>
+                </div>
+                <div>
+                    <h2 class='pe-4 h5'>Km da percorrere</h2>
+                    <span>${km}km</span>
+                </div>
+                <div>
+                    <h2 class='pe-4 h5'>Fascia d'età</h2>
+                    <span>${age}</span>
+                </div>
+                <div>
+                    <h2 class='pe-4 h5'>Costo Biglietto</h2>
+                    <span>${getTicketprice(km, age)}</span>
+                </div>
+            </div>`
 }
