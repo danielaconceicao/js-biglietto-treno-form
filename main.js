@@ -16,6 +16,12 @@ formEl.addEventListener('submit', function (e) {
             <span>${getTicketPrice(inputNumberEl, optionEl)}</span>`;
 
     ticketEl.insertAdjacentHTML('beforeend', info);
+
+    clearInput();
+});
+
+formEl.addEventListener('reset', function(){
+    cancelTicketPurchase();
 });
 
 function getTicketPrice(km, option) {
@@ -27,7 +33,6 @@ function getTicketPrice(km, option) {
     let ticketPrice = km * pricePerKilometre;
     let formattedTicketPrice = ticketPrice.toLocaleString('it-IT', { style: "currency", currency: 'EUR' });
 
-
     //va applicato uno sconto del 20% per i minorenni
     let discountForMinors = (20 / 100) * ticketPrice;
     discountForMinors = ticketPrice - discountForMinors;
@@ -38,7 +43,6 @@ function getTicketPrice(km, option) {
     discountForSeniors = ticketPrice - discountForSeniors;
     let discountForSeniorsFormatted = discountForSeniors.toLocaleString('it-IT', { style: "currency", currency: 'EUR' })
 
-    let message;
 
     if (option === 'Minorenne') {
         return `${discountForMinorsFormatted}`;
@@ -48,4 +52,13 @@ function getTicketPrice(km, option) {
         return `${formattedTicketPrice}`;
     }
 
+}
+
+function clearInput() {
+    document.getElementById('inputName').value = '';
+    document.getElementById('inputNumber').value = '';
+}
+
+function cancelTicketPurchase(){
+    document.querySelector('.see-ticket').innerHTML = '';
 }
